@@ -34,6 +34,7 @@ export default function ResultsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const query = searchParams.get("q") || "";
+  const [count, setCount] = useState<number>(0);
 
   const [inputValue, setInputValue] = useState(query);
 
@@ -53,6 +54,7 @@ export default function ResultsPage() {
 
           const data = await response.json();
           setResults(data.results || []);
+          setCount(data.count || 0);
         } catch (err) {
           console.error("Error fetching results", err);
           setResults([]);
@@ -166,7 +168,7 @@ export default function ResultsPage() {
                 <p className="text-muted-foreground text-xs sm:text-sm">
                   Showing{" "}
                   <span className="font-semibold text-foreground">
-                    {activeCategory.toUpperCase()}
+                    {count}
                   </span>{" "}
                   results for{" "}
                   <span className="font-semibold text-foreground">
