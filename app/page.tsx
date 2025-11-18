@@ -1,24 +1,28 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Search, Moon, Sun } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Footer } from "@/components/footer"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Search, Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
-  const [query, setQuery] = useState("")
-  const [isDark, setIsDark] = useState(false)
-  const router = useRouter()
+  const [query, setQuery] = useState("");
+  const [isDark, setIsDark] = useState(false);
+  const router = useRouter();
 
+  // MAIN LOGIC (unchanged UI)
   const handleSearch = (e?: React.FormEvent) => {
-    e?.preventDefault()
-    if (query.trim()) {
-      router.push(`/results?q=${encodeURIComponent(query)}`)
-    }
-  }
+    e?.preventDefault();
+
+    const q = query.trim();
+    if (!q) return;
+
+    // redirect to results with proper TS-safe encoding
+    router.push(`/results?q=${encodeURIComponent(q)}`);
+  };
 
   return (
     <div className={isDark ? "dark" : ""}>
@@ -73,6 +77,7 @@ export default function Home() {
               >
                 Search
               </Button>
+
               <Button
                 onClick={() => router.push("/lucky")}
                 variant="outline"
@@ -88,5 +93,5 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
