@@ -19,11 +19,35 @@ interface RealAPIResult {
 }
 
 const categories: { id: Category; label: string }[] = [
-  { id: "all", label: "ALL" },
+  { id: "all", label: "WEB" },
   { id: "images", label: "IMAGES" },
   { id: "news", label: "NEWS" },
   { id: "videos", label: "VIDEOS" },
 ];
+
+const relatedSearches: Record<string, string[]> = {
+  cors: [
+    "fetch api",
+    "preflight request",
+    "same-origin policy",
+    "http headers",
+  ],
+  react: ["nextjs", "react hooks", "typescript", "zustand"],
+  python: ["fastapi", "django", "uvicorn", "asyncio"],
+  javascript: ["event loop", "nodejs", "promises", "async await"],
+  html: ["css", "semantic tags", "accessibility", "seo basics"],
+  default: [
+    "web development",
+    "software engineering",
+    "frontend roadmap",
+    "apis",
+  ],
+};
+
+function getRelatedSearches(query: string) {
+  const key = query.toLowerCase().trim();
+  return relatedSearches[key] || relatedSearches.default;
+}
 
 export default function ResultsPage() {
   const [isDark, setIsDark] = useState(false);
@@ -159,17 +183,13 @@ export default function ResultsPage() {
           <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 lg:py-8">
             <div
               className={
-                activeCategory === "images"
-                  ? ""
-                  : "max-w-full lg:max-w-3xl"
+                activeCategory === "images" ? "" : "max-w-full lg:max-w-3xl"
               }
             >
               <div className="mb-4 sm:mb-6">
                 <p className="text-muted-foreground text-xs sm:text-sm">
                   Showing{" "}
-                  <span className="font-semibold text-foreground">
-                    {count}
-                  </span>{" "}
+                  <span className="font-semibold text-foreground">{count}</span>{" "}
                   results for{" "}
                   <span className="font-semibold text-foreground">
                     "{query}"
@@ -196,7 +216,8 @@ export default function ResultsPage() {
                         FEATURE COMING SOON
                       </h2>
                       <p className="text-muted-foreground mt-2 text-sm">
-                        Stay tuned! We're working hard on {activeCategory} search.
+                        Stay tuned! We're working hard on {activeCategory}{" "}
+                        search.
                       </p>
                     </div>
                   ) : (
@@ -205,20 +226,62 @@ export default function ResultsPage() {
                       {results.length > 0 ? (
                         <div className="space-y-6">
                           {results.map((r, i) => (
-                            <article
-                              key={i}
-                              className="p-4 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
-                            >
-                              <p className="text-xs text-muted-foreground mb-1 truncate">
-                                {r.url}
-                              </p>
-                              <h2 className="text-lg font-semibold text-primary mb-2">
-                                {r.title}
-                              </h2>
-                              <p className="text-sm text-muted-foreground">
-                                {r.snippet}
-                              </p>
-                            </article>
+                            <div key={i}>
+                              {/* Normal search result */}
+                              <article className="p-4 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
+                                <p className="text-xs text-muted-foreground mb-1 truncate">
+                                  {r.url}
+                                </p>
+                                <h2 className="text-lg font-semibold text-primary mb-2">
+                                  {r.title}
+                                </h2>
+                                <p className="text-sm text-muted-foreground">
+                                  {r.snippet}
+                                </p>
+                              </article>
+
+                              {/* 🎯 Insert People Also Search For after the 3rd result */}
+                              {i === 2 && (
+                                <div className="my-10">
+                                  <h3 className="text-lg font-semibold mb-4">
+                                    People also search for
+                                  </h3>
+
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {getRelatedSearches(query).map((term) => {
+                                      const parts = term.split(" ");
+                                      const first = parts.shift() || "";
+                                      const rest = parts.join(" ");
+
+                                      return (
+                                        <button
+                                          key={term}
+                                          onClick={() =>
+                                            router.push(
+                                              `/results?q=${encodeURIComponent(
+                                                term
+                                              )}`
+                                            )
+                                          }
+                                          className="w-full flex items-center justify-between px-4 py-3 
+              bg-muted hover:bg-muted/70 rounded-xl border border-border
+              text-sm transition-all text-left"
+                                        >
+                                          <span>
+                                            <span className="font-semibold">
+                                              {first}
+                                            </span>
+                                            {rest ? " " + rest : ""}
+                                          </span>
+
+                                          <Search className="h-4 w-4 text-muted-foreground" />
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              )}
+                            </div>
                           ))}
                         </div>
                       ) : (
