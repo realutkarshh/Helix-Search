@@ -233,7 +233,7 @@ export default function ResultsPage() {
                                   {r.url}
                                 </p>
                                 <h2 className="text-lg font-semibold text-primary mb-2">
-                                  {r.title}
+                                  <a href={r.url} target="_blank" rel="noopener noreferrer" >{r.title}</a> 
                                 </h2>
                                 <p className="text-sm text-muted-foreground">
                                   {r.snippet}
