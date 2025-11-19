@@ -4,6 +4,8 @@ export interface SearchResult {
   title: string;
   snippet: string;
   score: number;
+  favicon: string;
+  
 }
 
 export interface SearchResponse {

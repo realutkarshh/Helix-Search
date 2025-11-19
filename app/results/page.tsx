@@ -2,11 +2,12 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, Moon, Sun, ArrowLeft, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/footer";
+import Image from "next/image";
 
 type Category = "all" | "images" | "news" | "videos";
 
@@ -16,6 +17,9 @@ interface RealAPIResult {
   title: string;
   snippet: string;
   score: number;
+  favicon: string;
+  site_name: string;
+  image: string;
 }
 
 const categories: { id: Category; label: string }[] = [
@@ -26,11 +30,11 @@ const categories: { id: Category; label: string }[] = [
 ];
 
 const relatedSearches: Record<string, string[]> = {
-  cors: [
-    "fetch api",
-    "preflight request",
-    "same-origin policy",
-    "http headers",
+  "artificial intelligence": [
+    "Artificial Neural Networks",
+    "Will AI replace Humans ?",
+    "Machine Learning",
+    "AI Foundations",
   ],
   react: ["nextjs", "react hooks", "typescript", "zustand"],
   python: ["fastapi", "django", "uvicorn", "asyncio"],
@@ -59,6 +63,22 @@ export default function ResultsPage() {
   const router = useRouter();
   const query = searchParams.get("q") || "";
   const [count, setCount] = useState<number>(0);
+  const [openInfo, setOpenInfo] = useState<number | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+
+  // Close popup on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (infoRef.current && !infoRef.current.contains(event.target as Node)) {
+        setOpenInfo(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const [inputValue, setInputValue] = useState(query);
 
@@ -227,17 +247,105 @@ export default function ResultsPage() {
                         <div className="space-y-6">
                           {results.map((r, i) => (
                             <div key={i}>
-                              {/* Normal search result */}
-                              <article className="p-4 rounded-lg hover:bg-muted/50 transition-colors cursor-pointer">
-                                <p className="text-xs text-muted-foreground mb-1 truncate">
-                                  {r.url}
-                                </p>
-                                <h2 className="text-lg font-semibold text-primary mb-2">
-                                  <a href={r.url} target="_blank" rel="noopener noreferrer" >{r.title}</a> 
-                                </h2>
-                                <p className="text-sm text-muted-foreground">
-                                  {r.snippet}
-                                </p>
+                              <article
+                                
+                                className="p-5 rounded-2xl border border-border bg-card hover:bg-muted/40 
+             transition cursor-pointer group flex gap-6 relative"
+                              >
+                                {/* TOP-RIGHT HELP ICON */}
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setOpenInfo(openInfo === i ? null : i);
+                                  }}
+                                  className="absolute top-3 right-3 text-muted-foreground hover:text-foreground 
+               flex items-center justify-center"
+                                >
+                                  <span className="material-symbols-outlined small">
+                                    help
+                                  </span>
+                                </button>
+
+                                {/* LEFT CONTENT */}
+                                <div className="flex-1 min-w-0">
+                                  {/* Favicon + Site Info */}
+                                  <div className="flex gap-2 mb-2 items-center">
+                                    <img
+                                      src={r.favicon}
+                                      onError={(e) =>
+                                        (e.currentTarget.style.display = "none")
+                                      }
+                                      className="w-6 h-6 rounded-sm object-contain"
+                                    />
+
+                                    <div className="flex flex-col leading-tight">
+                                      <span className="text-sm font-medium text-foreground">
+                                        {r.site_name}
+                                      </span>
+
+                                      <span className="text-xs text-muted-foreground truncate max-w-[200px]">
+                                        {new URL(r.url).hostname}
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  {/* TITLE */}
+                                  <h2 onClick={() => window.open(r.url, "_blank")}
+                                    className="text-lg font-semibold text-blue-600 dark:text-blue-400 
+                   group-hover:underline leading-snug mb-1"
+                                  >
+                                    {r.title}
+                                  </h2>
+
+                                  {/* SNIPPET */}
+                                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                                    {r.snippet}
+                                  </p>
+                                </div>
+
+                                {/* RIGHT IMAGE */}
+                                {r.image && (
+                                  <div className="flex flex-col justify-between items-center">
+                                    <img
+                                      src={r.image}
+                                      onError={(e) =>
+                                        (e.currentTarget.style.display = "none")
+                                      }
+                                      className="w-28 h-28 rounded-xl object-cover border border-border hidden sm:block"
+                                    />
+                                  </div>
+                                )}
+
+                                {/* INFO POPUP */}
+                                {openInfo === i && (
+                                  <div
+                                    ref={infoRef}
+                                    className="absolute top-12 right-3 bg-popover border border-border 
+                 shadow-lg rounded-lg p-3 w-60 text-xs z-50"
+                                  >
+                                    <p className="font-semibold mb-1 text-foreground">
+                                      Why this result?
+                                    </p>
+
+                                    <p className="text-muted-foreground mb-2">
+                                      Score:{" "}
+                                      <span className="font-semibold">
+                                        {r.score.toFixed(3)}
+                                      </span>
+                                    </p>
+
+                                    <p className="font-semibold mb-1 text-foreground">
+                                      How is this score calculated?
+                                    </p>
+
+                                    <ul className="list-disc ml-4 text-muted-foreground space-y-1">
+                                      <li>TF-IDF relevance</li>
+                                      <li>Keyword match in title</li>
+                                      <li>Keyword density in snippet</li>
+                                      <li>Document length normalization</li>
+                                    </ul>
+                                  </div>
+                                )}
                               </article>
 
                               {/* 🎯 Insert People Also Search For after the 3rd result */}
