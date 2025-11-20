@@ -247,11 +247,7 @@ export default function ResultsPage() {
                         <div className="space-y-6">
                           {results.map((r, i) => (
                             <div key={i}>
-                              <article
-                                
-                                className="p-5 rounded-2xl border border-border bg-card hover:bg-muted/40 
-             transition cursor-pointer group flex gap-6 relative"
-                              >
+                              <article className="py-4 border-b border-border group flex gap-6 cursor-pointer relative">
                                 {/* TOP-RIGHT HELP ICON */}
                                 <button
                                   onClick={(e) => {
@@ -279,7 +275,7 @@ export default function ResultsPage() {
                                     />
 
                                     <div className="flex flex-col leading-tight">
-                                      <span className="text-sm font-medium text-foreground">
+                                      <span className="text-sm font-normal text-foreground">
                                         {r.site_name}
                                       </span>
 
@@ -290,15 +286,15 @@ export default function ResultsPage() {
                                   </div>
 
                                   {/* TITLE */}
-                                  <h2 onClick={() => window.open(r.url, "_blank")}
-                                    className="text-lg font-semibold text-blue-600 dark:text-blue-400 
-                   group-hover:underline leading-snug mb-1"
+                                  <h2
+                                    onClick={() => window.open(r.url, "_blank")}
+                                    className="text-xl font-normal text-blue-500 group-hover:underline"
                                   >
                                     {r.title}
                                   </h2>
 
                                   {/* SNIPPET */}
-                                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                                  <p className="text-[14px] text-[#4d5156] leading-relaxed line-clamp-3">
                                     {r.snippet}
                                   </p>
                                 </div>
