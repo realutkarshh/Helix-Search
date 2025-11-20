@@ -219,14 +219,15 @@ export default function ResultsPage() {
 
               {/* LOADING */}
               {loading ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="flex flex-col items-center gap-3">
-                    <Loader className="h-8 w-8 text-primary animate-spin" />
-                    <p className="text-muted-foreground text-sm">
-                      Loading {activeCategory} results...
-                    </p>
-                  </div>
-                </div>
+                <div className="flex flex-col items-center justify-center py-12">
+  <div className="pixel-loader">
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <p className="text-muted-foreground text-sm mt-4 text-center">
+    Fetching {activeCategory} results...
+  </p>
+</div>
               ) : (
                 <>
                   {/* 🚀 FEATURE COMING SOON for non-ALL categories */}
