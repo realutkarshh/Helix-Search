@@ -75,11 +75,12 @@ export default function Home() {
         <main className="flex flex-col items-center justify-center flex-1 px-4">
           <div className="w-full max-w-2xl space-y-12 animate-in fade-in duration-500">
             {/* Logo */}
-            <div className="text-center space-y-2">
-              <h1 className="text-5xl font-bold tracking-tight text-pretty">
-                Helix
-              </h1>
-              <p className="text-muted-foreground text-lg">Find what matters</p>
+            <div className="flex justify-center py-6">
+              <img
+                src="/helix-logo.png"
+                alt="Helix Logo"
+                className="w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-auto"
+              />
             </div>
 
             {/* Search Bar */}

@@ -252,7 +252,6 @@ export default function ResultsPage() {
                           {results.map((r, i) => (
                             <div key={i}>
                               <article className="py-4 border-b border-border group flex gap-6 cursor-pointer relative">
-
                                 {/* LEFT CONTENT */}
                                 <div className="flex-1 min-w-0">
                                   {/* Favicon + Site Info */}
@@ -296,7 +295,7 @@ export default function ResultsPage() {
                                   {/* TITLE */}
                                   <h2
                                     onClick={() => window.open(r.url, "_blank")}
-                                    className="text-xl font-normal text-blue-600 group-hover:underline"
+                                    className="text-xl font-semibold text-blue-700 group-hover:underline"
                                   >
                                     {r.title}
                                   </h2>
@@ -307,10 +306,9 @@ export default function ResultsPage() {
                                   </p>
                                 </div>
 
-                                {/* RIGHT IMAGE */}
                                 {/* RIGHT IMAGE (mobile + desktop Google-style) */}
                                 {r.image && (
-                                  <div className="flex flex-col justify-start items-center">
+                                  <div className="flex flex-col justify-start items-center order-last sm:order-none mt-3 sm:mt-0">
                                     <img
                                       src={r.image}
                                       onError={(e) =>

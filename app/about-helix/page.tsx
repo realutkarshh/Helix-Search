@@ -18,7 +18,15 @@ export default function AboutPage() {
     <div className="max-w-3xl mx-auto py-12 px-6 text-[#202124]">
       {/* HEADER WITH BACK BUTTON */}
       <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-4xl font-semibold">About Helix Search</h1>
+        <h1 className="text-4xl font-semibold">About 
+          <div className="flex justify-center py-6">
+              <img
+                src="/helix-logo.png"
+                alt="Helix Logo"
+                className="w-35 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-auto"
+              />
+            </div>
+        </h1>
 
         <a
           href="/"
