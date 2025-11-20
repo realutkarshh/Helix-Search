@@ -220,14 +220,17 @@ export default function ResultsPage() {
               {/* LOADING */}
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-12">
-  <div className="pixel-loader">
-    <span></span><span></span><span></span><span></span>
-  </div>
+                  <div className="pixel-loader">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
 
-  <p className="text-muted-foreground text-sm mt-4 text-center">
-    Fetching {activeCategory} results...
-  </p>
-</div>
+                  <p className="text-muted-foreground text-sm mt-4 text-center">
+                    Fetching {activeCategory} results...
+                  </p>
+                </div>
               ) : (
                 <>
                   {/* 🚀 FEATURE COMING SOON for non-ALL categories */}
@@ -249,19 +252,6 @@ export default function ResultsPage() {
                           {results.map((r, i) => (
                             <div key={i}>
                               <article className="py-4 border-b border-border group flex gap-6 cursor-pointer relative">
-                                {/* TOP-RIGHT HELP ICON */}
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    setOpenInfo(openInfo === i ? null : i);
-                                  }}
-                                  className="absolute top-3 right-3 text-muted-foreground hover:text-foreground 
-               flex items-center justify-center"
-                                >
-                                  <span className="material-symbols-outlined small">
-                                    help
-                                  </span>
-                                </button>
 
                                 {/* LEFT CONTENT */}
                                 <div className="flex-1 min-w-0">
@@ -276,9 +266,26 @@ export default function ResultsPage() {
                                     />
 
                                     <div className="flex flex-col leading-tight">
-                                      <span className="text-sm font-normal text-foreground">
-                                        {r.site_name}
-                                      </span>
+                                      <div className="flex items-center gap-1">
+                                        <span className="text-sm font-normal text-foreground">
+                                          {r.site_name}
+                                        </span>
+
+                                        {/* HELP ICON AFTER SITE NAME */}
+                                        <button
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            setOpenInfo(
+                                              openInfo === i ? null : i
+                                            );
+                                          }}
+                                          className="text-muted-foreground hover:text-foreground flex items-center justify-center"
+                                        >
+                                          <span className="material-symbols-outlined small">
+                                            help
+                                          </span>
+                                        </button>
+                                      </div>
 
                                       <span className="text-xs text-muted-foreground truncate max-w-[200px]">
                                         {new URL(r.url).hostname}
