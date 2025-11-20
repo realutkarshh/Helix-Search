@@ -159,7 +159,7 @@ export default function Home() {
               </Button>
 
               <Button
-                onClick={() => router.push("/lucky")}
+                onClick={() => router.push("/about-helix")}
                 variant="outline"
                 className="border-border rounded-full px-8 font-medium hover:bg-muted bg-transparent"
               >
