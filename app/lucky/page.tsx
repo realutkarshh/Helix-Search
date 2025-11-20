@@ -1,11 +1,14 @@
 "use client";
 
 import React from "react";
+import { ArrowLeft } from 'lucide-react';
+
 
 export default function AboutPage() {
   const popularQueries: string[] = [
-    "What is CSS?",
+    "Learn CSS",
     "Best restaurants in Delhi",
+    "Places to visit in Japan",
     "How to learn Python",
     "What is Machine Learning",
     "Top hotels in Mumbai",
@@ -19,9 +22,9 @@ export default function AboutPage() {
 
         <a
           href="/"
-          className="text-blue-600 text-sm border px-4 py-2 rounded-lg hover:bg-blue-50 transition flex items-center gap-1"
+          className="text-gray-900 text-sm border px-4 py-2 rounded-lg hover:bg-blue-50 transition flex items-center gap-1"
         >
-          ← Start Searching
+        <ArrowLeft />
         </a>
       </div>
 
