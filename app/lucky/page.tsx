@@ -57,7 +57,7 @@ export default function AboutPage() {
             <strong>1,400+ websites crawled</strong>
           </li>
           <li>
-            <strong>10,000+ keywords indexed</strong>
+            <strong>1,00,000+ keywords indexed</strong>
           </li>
         </ul>
 
