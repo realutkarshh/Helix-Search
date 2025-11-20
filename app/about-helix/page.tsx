@@ -9,9 +9,9 @@ export default function AboutPage() {
     "Learn CSS",
     "Best restaurants in Delhi",
     "Places to visit in Japan",
-    "How to learn Python",
+    "Boredom is good or bad?",
     "What is Machine Learning",
-    "Top hotels in Mumbai",
+    "Will AI replace humans?",
   ];
 
   return (

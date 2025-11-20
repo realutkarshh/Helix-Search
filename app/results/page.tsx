@@ -300,14 +300,15 @@ export default function ResultsPage() {
                                 </div>
 
                                 {/* RIGHT IMAGE */}
+                                {/* RIGHT IMAGE (mobile + desktop Google-style) */}
                                 {r.image && (
-                                  <div className="flex flex-col justify-between items-center">
+                                  <div className="flex flex-col justify-start items-center">
                                     <img
                                       src={r.image}
                                       onError={(e) =>
                                         (e.currentTarget.style.display = "none")
                                       }
-                                      className="w-28 h-28 rounded-xl object-cover border border-border hidden sm:block"
+                                      className="w-[70px] h-[70px] sm:w-28 sm:h-28 rounded-xl object-cover border border-border ml-2"
                                     />
                                   </div>
                                 )}
