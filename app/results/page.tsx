@@ -295,20 +295,20 @@ export default function ResultsPage() {
                                   {/* TITLE */}
                                   <h2
                                     onClick={() => window.open(r.url, "_blank")}
-                                    className="text-xl font-normal text-blue-700 group-hover:underline"
+                                    className="text-xl font-normal text-blue-700 group-hover:underline dark:text-blue-400"
                                   >
                                     {r.title}
                                   </h2>
 
                                   {/* SNIPPET */}
-                                  <p className="text-[14px] text-[#4d5156] leading-relaxed line-clamp-3">
+                                  <p className="text-[14px] text-[#4d5156] dark:text-gray-400 leading-relaxed line-clamp-3">
                                     {r.snippet}
                                   </p>
                                 </div>
 
                                 {/* RIGHT IMAGE (mobile + desktop Google-style) */}
                                 {r.image && (
-                                  <div className="flex flex-col justify-start items-center order-last sm:order-none mt-3 sm:mt-0">
+                                  <div className="hidden sm:flex flex-col justify-start items-center order-last sm:order-none mt-3 sm:mt-0">
                                     <img
                                       src={r.image}
                                       onError={(e) =>
