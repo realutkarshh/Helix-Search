@@ -62,24 +62,12 @@ export default function AboutPage() {
 
         <ul className="list-disc ml-6 space-y-2 text-[15px]">
           <li>
-            <strong>2,000+ websites crawled</strong>
+            <strong>2,700+ websites crawled</strong>
           </li>
           <li>
-            <strong>1,60,700+ keywords indexed</strong>
+            <strong>2,14,200+ keywords indexed</strong>
           </li>
         </ul>
-
-        <p className="mt-4 mb-2 font-medium">Allowed Seed Domains:</p>
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm leading-relaxed">
-          microsoft.com,developer.mozilla.org,samsung.com,github.com,
-          reddit.com,flipkart.com,blinkit.com,amazon.in,youtube.com,leetcode.com,
-          claude.com,openai.com,chatgpt.com,google.com,meta.com,apple.com,
-          medanta.org,healthline.com,nike.com,educative.io,
-          geeksforgeeks.org, datacamp.com, eazydiner.com, cntraveller.in,
-          bbc.com, timesofindia.indiatimes.com, hbr.org, timeanddate.com,
-          artificialintelligence-news.com, recipetineats.com, docs.python.org,
-          allrecipes.com, w3schools.com, britannica.com
-        </div>
       </section>
 
       {/* INDEXING SECTION */}
