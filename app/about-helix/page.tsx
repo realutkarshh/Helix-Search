@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { ArrowLeft } from 'lucide-react';
-
+import { ArrowLeft } from "lucide-react";
 
 export default function AboutPage() {
   const popularQueries: string[] = [
@@ -18,21 +17,22 @@ export default function AboutPage() {
     <div className="max-w-3xl mx-auto py-12 px-6 text-[#202124]">
       {/* HEADER WITH BACK BUTTON */}
       <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-4xl font-semibold">About 
+        <h1 className="text-4xl font-semibold">
+          About
           <div className="flex justify-center py-6">
-              <img
-                src="/helix-logo.png"
-                alt="Helix Logo"
-                className="w-35 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-auto"
-              />
-            </div>
+            <img
+              src="/helix-logo.png"
+              alt="Helix Logo"
+              className="w-35 sm:w-48 md:w-56 lg:w-64 xl:w-72 h-auto"
+            />
+          </div>
         </h1>
 
         <a
           href="/"
           className="text-gray-900 text-sm border px-4 py-2 rounded-lg hover:bg-blue-50 transition flex items-center gap-1"
         >
-        <ArrowLeft />
+          <ArrowLeft />
         </a>
       </div>
 
@@ -71,10 +71,14 @@ export default function AboutPage() {
 
         <p className="mt-4 mb-2 font-medium">Allowed Seed Domains:</p>
         <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm leading-relaxed">
-          educative.io, geeksforgeeks.org, datacamp.com, eazydiner.com,
-          cntraveller.in, bbc.com, timesofindia.indiatimes.com, hbr.org,
-          timeanddate.com, artificialintelligence-news.com, recipetineats.com,
-          docs.python.org, allrecipes.com, w3schools.com, britannica.com
+          microsoft.com,developer.mozilla.org,samsung.com,github.com,
+          reddit.com,flipkart.com,blinkit.com,amazon.in,youtube.com,leetcode.com,
+          claude.com,openai.com,chatgpt.com,google.com,meta.com,apple.com,
+          medanta.org,healthline.com,nike.com,educative.io,
+          geeksforgeeks.org, datacamp.com, eazydiner.com, cntraveller.in,
+          bbc.com, timesofindia.indiatimes.com, hbr.org, timeanddate.com,
+          artificialintelligence-news.com, recipetineats.com, docs.python.org,
+          allrecipes.com, w3schools.com, britannica.com
         </div>
       </section>
 
@@ -96,16 +100,16 @@ export default function AboutPage() {
 
       {/* RANKING SECTION */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold mb-3">How Search Ranking Works</h2>
+        <h2 className="text-2xl font-semibold mb-3">
+          How Search Ranking Works
+        </h2>
         <p className="leading-relaxed mb-3">
           Helix Search uses a TF-IDF based scoring system along with additional
           ranking factors. When a query is submitted, each document receives a
           score based on relevance and statistical weight.
         </p>
 
-        <h3 className="text-lg font-semibold mb-2">
-          Factors Used in Scoring:
-        </h3>
+        <h3 className="text-lg font-semibold mb-2">Factors Used in Scoring:</h3>
 
         <ul className="list-disc ml-6 space-y-2 text-[15px]">
           <li>TF-IDF relevance</li>
@@ -121,7 +125,7 @@ export default function AboutPage() {
 
         <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm overflow-auto">
           <pre className="whitespace-pre-wrap break-words text-[13px]">
-{`{
+            {`{
   "id": "691e0622585932806ce4ca87",
   "url": "https://campus.w3schools.com/collections/course-catalog/products/css-course",
   "title": "Learn CSS — W3Schools.com",
@@ -147,16 +151,16 @@ export default function AboutPage() {
             appear.
           </li>
           <li>
-            <strong>Inverse Document Frequency (IDF)</strong> — gives more weight
-            to rare terms.
+            <strong>Inverse Document Frequency (IDF)</strong> — gives more
+            weight to rare terms.
           </li>
           <li>
             <strong>Title Match Score</strong> — boosts results with relevant
             titles.
           </li>
           <li>
-            <strong>Snippet Density</strong> — measures concentration of keywords
-            in the preview text.
+            <strong>Snippet Density</strong> — measures concentration of
+            keywords in the preview text.
           </li>
           <li>
             <strong>Document Normalization</strong> — prevents long pages from
@@ -167,7 +171,9 @@ export default function AboutPage() {
 
       {/* POPULAR QUERIES */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-3">Try These Popular Queries</h2>
+        <h2 className="text-2xl font-semibold mb-3">
+          Try These Popular Queries
+        </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {popularQueries.map((q) => (
