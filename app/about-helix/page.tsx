@@ -62,10 +62,10 @@ export default function AboutPage() {
 
         <ul className="list-disc ml-6 space-y-2 text-[15px]">
           <li>
-            <strong>1,400+ websites crawled</strong>
+            <strong>1,700+ websites crawled</strong>
           </li>
           <li>
-            <strong>1,00,000+ keywords indexed</strong>
+            <strong>1,27,000+ keywords indexed</strong>
           </li>
         </ul>
 
