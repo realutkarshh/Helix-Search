@@ -295,7 +295,7 @@ export default function ResultsPage() {
                                   {/* TITLE */}
                                   <h2
                                     onClick={() => window.open(r.url, "_blank")}
-                                    className="text-xl font-semibold text-blue-700 group-hover:underline"
+                                    className="text-xl font-normal text-blue-700 group-hover:underline"
                                   >
                                     {r.title}
                                   </h2>
