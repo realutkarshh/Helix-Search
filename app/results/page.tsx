@@ -22,6 +22,18 @@ interface RealAPIResult {
   image: string;
 }
 
+interface ImageAPIResult {
+  id: string;
+  file_url: string;
+  alt: string;
+  caption: string;
+  page_url: string;
+  domain: string;
+  format: string;
+  snippet: string;
+  score: number;
+}
+
 const categories: { id: Category; label: string }[] = [
   { id: "all", label: "WEB" },
   { id: "images", label: "IMAGES" },
@@ -57,6 +69,7 @@ export default function ResultsPage() {
   const [isDark, setIsDark] = useState(false);
   const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [results, setResults] = useState<RealAPIResult[]>([]);
+  const [imageResults, setImageResults] = useState<ImageAPIResult[]>([]);
   const [loading, setLoading] = useState(true);
 
   const searchParams = useSearchParams();
@@ -108,8 +121,30 @@ export default function ResultsPage() {
       };
 
       fetchResults();
+    } else if (activeCategory === "images") {
+      const fetchImages = async () => {
+        setLoading(true);
+        try {
+          const response = await fetch(
+            `https://image-search-engine-o1vm.onrender.com/search/images?q=${encodeURIComponent(
+              query
+            )}`
+          );
+
+          const data = await response.json();
+          setImageResults(data.results || []);
+          setCount(data.count || 0);
+        } catch (err) {
+          console.error("Error fetching image results", err);
+          setImageResults([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchImages();
     } else {
-      // 🚀 Other categories → No API call, show "COMING SOON"
+      // Other categories: Coming soon
       setResults([]);
       setLoading(false);
     }
@@ -234,17 +269,7 @@ export default function ResultsPage() {
               ) : (
                 <>
                   {/* 🚀 FEATURE COMING SOON for non-ALL categories */}
-                  {activeCategory !== "all" ? (
-                    <div className="text-center py-16">
-                      <h2 className="text-xl font-semibold">
-                        FEATURE COMING SOON
-                      </h2>
-                      <p className="text-muted-foreground mt-2 text-sm">
-                        Stay tuned! We're working hard on {activeCategory}{" "}
-                        search.
-                      </p>
-                    </div>
-                  ) : (
+                  {activeCategory === "all" ? (
                     <>
                       {/* ALL category results */}
                       {results.length > 0 ? (
@@ -403,6 +428,61 @@ export default function ResultsPage() {
                         </div>
                       )}
                     </>
+                  ) : activeCategory === "images" ? (
+                    <>
+                      {/* GOOGLE IMAGE STYLE GRID */}
+                      {imageResults.length > 0 ? (
+                        <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                          {imageResults.map((img, i) => (
+                            <div
+                              key={i}
+                              onClick={() =>
+                                window.open(img.page_url, "_blank")
+                              }
+                              className="group cursor-pointer relative"
+                            >
+                              <img
+                                src={img.file_url}
+                                alt={img.alt || "image"}
+                                className="w-full h-40 object-cover rounded-lg border border-border 
+                         group-hover:shadow-lg transition-all duration-300"
+                                onError={(e) =>
+                                  (e.currentTarget.style.display = "none")
+                                }
+                              />
+
+                              {/* Hover Overlay */}
+                              <div
+                                className="absolute inset-0 bg-black/40 opacity-0 
+                            group-hover:opacity-100 transition-all duration-300 
+                            flex flex-col justify-end p-2 text-white text-xs"
+                              >
+                                <p className="truncate">{img.alt || "Image"}</p>
+                                <p className="opacity-80 truncate">
+                                  {img.domain}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="text-center py-12">
+                          <p className="text-muted-foreground text-sm">
+                            No images found.
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="text-center py-16">
+                      <h2 className="text-xl font-semibold">
+                        FEATURE COMING SOON
+                      </h2>
+                      <p className="text-muted-foreground mt-2 text-sm">
+                        Stay tuned! We're working hard on {activeCategory}{" "}
+                        search.
+                      </p>
+                    </div>
                   )}
                 </>
               )}
